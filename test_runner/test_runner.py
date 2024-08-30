@@ -21,45 +21,45 @@ class Test_Runner:
             dashboard_page = login_page.login_to_the_application()
             assert dashboard_page.verify_the_dashboard_page()
 
-        # with allure.step("Add User"):
-        #     dashboard_page.click_on_menu_item("Admin")
-        #     admin_page = AdminPage(self.driver)
-        #     assert admin_page.verify_the_admin_page()
-        #     admin_page.select_users_from_the_dropdown("User Management", "Users")
-        #     admin_page.click_on_add_button()
-        #     add_user = Excel_Utils.get_row_excel_data("Add User", 2)
-        #     username = admin_page.add_user(add_user[0], add_user[1], add_user[2], add_user[3], add_user[4])
-        #     # assert admin_page.verify_the_success_toast()
-        #     assert admin_page.verify_the_user_in_the_record(username)
-        #
-        # with allure.step("Delete User"):
-        #     username = admin_page.delete_user()
-        #     assert admin_page.verify_the_user_is_deleted(username)
-        #
-        # with allure.step("Apply Leave"):
-        #     dashboard_page.click_on_menu_item("Leave")
-        #     leave_page = LeavePage(self.driver)
-        #     assert leave_page.verify_the_leave_page()
-        #     leave_page.click_on_apply_tab()
-        #     apply_leave = Excel_Utils.get_row_excel_data("Leave", 2)
-        #     leave_page.apply_leave(apply_leave[0], apply_leave[1], apply_leave[2], apply_leave[3])
-        #     # assert leave_page.verify_the_success_toast()
-        #     leave_page.click_on_my_leave_tab()
-        #     assert leave_page.verify_the_applied_leave(apply_leave[0], apply_leave[3])
+        with allure.step("Add User"):
+            dashboard_page.click_on_menu_item("Admin")
+            admin_page = AdminPage(self.driver)
+            assert admin_page.verify_the_admin_page()
+            admin_page.select_users_from_the_dropdown("User Management", "Users")
+            admin_page.click_on_add_button()
+            add_user = Excel_Utils.get_row_excel_data("Add User", 2)
+            username = admin_page.add_user(add_user[0], add_user[1], add_user[2], add_user[3], add_user[4])
+            # assert admin_page.verify_the_success_toast()
+            assert admin_page.verify_the_user_in_the_record(username)
 
-        # with allure.step("Candidate Application"):
-        #     dashboard_page.click_on_menu_item("Recruitment")
-        #     recruitment_page = RecruitmentPage(self.driver)
-        #     assert recruitment_page.verify_the_recruitment_page()
-        #     recruitment_page.click_on_add_button()
-        #     recruitment = Excel_Utils.get_row_excel_data("Recruitment", 2)
-        #     recruitment_page.add_candidate(recruitment[0], recruitment[1], recruitment[2], recruitment[3], recruitment[4], recruitment[5], recruitment[6])
-        #     # assert recruitment_page.verify_the_success_toast()
-        #     assert recruitment_page.verify_the_candidate_application(recruitment[0], recruitment[1])
-        #
-        # with allure.step("Candidate Resume Download"):
-        #     dashboard_page.click_on_menu_item("Recruitment")
-        #     recruitment_page.download_candidate_resume()
+        with allure.step("Delete User"):
+            username = admin_page.delete_user()
+            assert admin_page.verify_the_user_is_deleted(username)
+
+        with allure.step("Apply Leave"):
+            dashboard_page.click_on_menu_item("Leave")
+            leave_page = LeavePage(self.driver)
+            assert leave_page.verify_the_leave_page()
+            leave_page.click_on_apply_tab()
+            apply_leave = Excel_Utils.get_row_excel_data("Leave", 2)
+            leave_page.apply_leave(apply_leave[0], apply_leave[1], apply_leave[2], apply_leave[3])
+            # assert leave_page.verify_the_success_toast()
+            leave_page.click_on_my_leave_tab()
+            assert leave_page.verify_the_applied_leave(apply_leave[0], apply_leave[3])
+
+        with allure.step("Candidate Application"):
+            dashboard_page.click_on_menu_item("Recruitment")
+            recruitment_page = RecruitmentPage(self.driver)
+            assert recruitment_page.verify_the_recruitment_page()
+            recruitment_page.click_on_add_button()
+            recruitment = Excel_Utils.get_row_excel_data("Recruitment", 2)
+            recruitment_page.add_candidate(recruitment[0], recruitment[1], recruitment[2], recruitment[3], recruitment[4], recruitment[5], recruitment[6])
+            # assert recruitment_page.verify_the_success_toast()
+            assert recruitment_page.verify_the_candidate_application(recruitment[0], recruitment[1])
+
+        with allure.step("Candidate Resume Download"):
+            dashboard_page.click_on_menu_item("Recruitment")
+            recruitment_page.download_candidate_resume()
 
         with allure.step("Add/Update Personal Details"):
             dashboard_page.click_on_menu_item("My Info")
