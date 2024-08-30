@@ -4,6 +4,7 @@ import allure
 from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.common import ElementClickInterceptedException, NoSuchElementException, ElementNotVisibleException
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -13,7 +14,7 @@ class WebUtils:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 10)
-        # driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome()
 
     def click_on_the_element(self, element):
         try:
@@ -96,3 +97,22 @@ class WebUtils:
         for handle in handles:
             if not (handle == current_handle):
                 self.driver.switch_to.window(handle)
+
+    def verify_the_url(self, expected_url):
+        time.sleep(0.5)
+        actual_url = self.driver.current_url
+        if actual_url.__contains__(expected_url):
+            return True
+        return False
+
+    def mouse_over_on_the_element(self, element, x, y):
+        ele = self.driver.find_element(*element)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(ele).move_by_offset(x, y).perform()
+
+    def clear_and_enter(self, element, value):
+        ele = self.driver.find_element(*element)
+        ele.send_keys(Keys.CONTROL+"a")
+        ele.send_keys(Keys.DELETE)
+        ele.send_keys(value)
+

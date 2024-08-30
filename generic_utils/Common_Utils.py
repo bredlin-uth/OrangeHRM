@@ -1,4 +1,7 @@
+import datetime
+import os
 import random
+import re
 
 
 def generate_random_number(digits):
@@ -14,3 +17,23 @@ def split_sentence(sentence, delimiter=None):
     else:
         words = sentence.split(delimiter)
     return words
+
+def get_timestamp():
+    #  "%Y/%m/%d %H:%M:%S %a %p"
+    return datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+def split_string(input_string):
+    # Use regular expression to split the string at the apostrophe
+    parts = re.split(r"[\\]", input_string)
+    # Strip leading and trailing spaces from each part
+    parts = [part.strip() for part in parts]
+    return parts
+
+def create_folder_with_timestamp(folder_path, timestamp):
+    folder_name = f"{folder_path}_{timestamp}"
+    try:
+        os.mkdir(folder_name)
+        return folder_name
+    except FileExistsError:
+        print(f"Folder already exists: {folder_name}")
+

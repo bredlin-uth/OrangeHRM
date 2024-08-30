@@ -1,6 +1,7 @@
 import time
 
 import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -50,13 +51,16 @@ class AdminPage(WebUtils):
 
     def verify_the_admin_page(self):
         status = self.check_element_is_displayed(self.admin_txt)
-        self.attach_screenshot_in_allure("Navigate to the Admin page", "navigated_to_admin_page")
+        with allure.step("Navigate to the admin page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="admin_page", attachment_type=AttachmentType.PNG)
         return status
 
     def select_users_from_the_dropdown(self, menu, item):
         self.click_on_the_element(self.top_bar_tab_menu(menu))
         self.wait_till_the_element_is_visible(self.top_bar_tab_menu_items(item))
         self.click_on_the_element(self.top_bar_tab_menu_items(item))
+        with allure.step(f"Navigate to the {menu} page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name=f"{menu}_page", attachment_type=AttachmentType.PNG)
 
     def click_on_add_button(self):
         self.wait_till_the_element_is_visible(self.add_btn)
@@ -76,17 +80,26 @@ class AdminPage(WebUtils):
         self.handle_form(self.form, self.username_tb).send_keys(username1)
         self.handle_form(self.form, self.password_tb).send_keys(password)
         self.handle_form(self.form, self.confirm_password_tb).send_keys(password)
+        with allure.step("Entered the field for the add user "):
+            allure.attach(self.driver.get_screenshot_as_png(), name="add_user", attachment_type=AttachmentType.PNG)
         self.handle_form(self.form, self.save_btn).click()
         return username1
 
     def verify_the_success_toast(self):
-        status = self.check_element_is_displayed(self.success_message_toast)
-        return status
+        message = None
+        try:
+            self.check_element_is_displayed(self.success_message_toast)
+            message = self.get_text_of_the_element(self.success_message_toast)
+            return message
+        except Exception:
+            if message is None:
+                return "Toast message not displayed"
 
     def verify_the_user_in_the_record(self, username):
         self.scroll_using_coordinates(0, 200)
         status = self.check_element_is_displayed(self.record_username(username))
-        self.attach_screenshot_in_allure("Verify the user is in the record table", "added_record")
+        with allure.step("User Records"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="user_records", attachment_type=AttachmentType.PNG)
         return status
 
     def delete_user(self):
@@ -95,14 +108,16 @@ class AdminPage(WebUtils):
         self.click_on_the_element(self.select_checkbox(username))
         self.click_on_the_element(self.delete_icon(username))
         self.wait_till_the_element_is_visible(self.yes_delete_button)
-        self.attach_screenshot_in_allure("Delete User", "are_you_sure")
+        with allure.step("Delete Popup"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="are_you_sure", attachment_type=AttachmentType.PNG)
         self.click_on_the_element(self.yes_delete_button)
         return username
 
     def verify_the_user_is_deleted(self, username):
         self.scroll_till_bottom_of_the_page()
         status = self.is_element_not_displayed(self.record_username(username))
-        self.attach_screenshot_in_allure("Delete User", "user_is_deleted")
+        with allure.step("User Records after Deleting"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="records_after_deletion", attachment_type=AttachmentType.PNG)
         return status
 
 

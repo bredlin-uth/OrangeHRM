@@ -1,5 +1,7 @@
 import time
 
+import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -23,15 +25,15 @@ class LeavePage(WebUtils):
     comments_ta = (By.XPATH, "//label[.='Comments']/../../descendant::textarea")
     apply_btn = (By.XPATH, "//button[@type='submit']")
     form = (By.XPATH, "//form[@class='oxd-form']")
-    month_cal = (By.XPATH, "//li[@class='oxd-calendar-selector-month']/div")
-    year_cal = (By.XPATH, "//li[@class='oxd-calendar-selector-year']/div")
+    month_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-month')]/div")
+    year_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-year')]/div")
     success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p")
 
     def dropdown_options(self, value):
         return By.XPATH, f"//div[@role='option']/span[contains(.,'{value}')]"
 
     def date_cal(self, date):
-        return By.XPATH, f"//div[@class='oxd-calendar-date' and text()='{date}']"
+        return By.XPATH, f"//div[contains(@class,'oxd-calendar-date') and text()='{date}']"
 
     def select_option(self, option):
         return By.XPATH, f"//li[contains(@class,'oxd-calendar-dropdown--option') and contains(.,'{option}')]"
@@ -41,13 +43,15 @@ class LeavePage(WebUtils):
 
     def verify_the_leave_page(self):
         status = self.check_element_is_displayed(self.leave_txt)
-        self.attach_screenshot_in_allure("Navigated to the Leave page", "leave_page")
+        with allure.step("Navigated to the Leave page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="leave_page",attachment_type=AttachmentType.PNG)
         return status
 
     def click_on_apply_tab(self):
         self.click_on_the_element(self.apply_tab)
         time.sleep(2)
-        self.attach_screenshot_in_allure("Navigate to the apply leave page", "apply_leave_page")
+        with allure.step("Navigated to the Apply page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="apply_page", attachment_type=AttachmentType.PNG)
 
     def select_date(self, date):
         split_date = Common_Utils.split_sentence(date)
@@ -70,20 +74,31 @@ class LeavePage(WebUtils):
         self.handle_form(self.form, self.to_date_cal).click()
         self.select_date(to_date)
         self.handle_form(self.form, self.comments_ta).send_keys(comments)
+        with allure.step("Entered all the leave fields"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="apply_leave", attachment_type=AttachmentType.PNG)
         self.handle_form(self.form, self.apply_btn).click()
 
     def verify_the_success_toast(self):
-        status = self.check_element_is_displayed(self.success_message_toast)
-        return status
+        message = None
+        try:
+            self.check_element_is_displayed(self.success_message_toast)
+            message = self.get_text_of_the_element(self.success_message_toast)
+            return message
+        except Exception:
+            if message is None:
+                return "Toast message not displayed"
 
     def click_on_my_leave_tab(self):
         self.click_on_the_element(self.my_leave_tab)
         self.scroll_till_bottom_of_the_page()
-        self.attach_screenshot_in_allure("Navigate to the my leave page", "my_leave_page")
+        with allure.step("Navigated to the My Leave page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="my_leave_page", attachment_type=AttachmentType.PNG)
 
     def verify_the_applied_leave(self, leave_type, comments):
-        return self.check_element_is_displayed(self.table_record(leave_type)) and self.check_element_is_displayed(self.table_record(comments))
-
+        status = self.check_element_is_displayed(self.table_record(leave_type)) and self.check_element_is_displayed(self.table_record(comments))
+        with allure.step("Applied leave Records"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="leave_records", attachment_type=AttachmentType.PNG)
+        return status
 
 
 

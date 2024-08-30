@@ -1,5 +1,7 @@
 import time
 
+import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -14,14 +16,21 @@ class PimPage(WebUtils):
 
     pim_txt = (By.XPATH, "//h6[text()='PIM']")
     help_icn = (By.XPATH, "//button[@title ='Help']")
+    help_center_img = (By.XPATH, "//a/img[@alt='OrangeHRM Help Center home page']")
 
     def verify_the_pim_page(self):
         status = self.check_element_is_displayed(self.pim_txt)
-        self.attach_screenshot_in_allure("Navigated to the PIM page", "pim_page")
+        with allure.step("Navigated to the PIM page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="pim_page", attachment_type=AttachmentType.PNG)
         return status
 
-    def click_on_the_help_icon(self):
+    def verify_orange_hrm_help(self,url):
         self.click_on_the_element(self.help_icn)
         self.switch_between_tabs()
-        self.attach_screenshot_in_allure("Navigated to the Help page", "help_page")
+        self.verify_the_url(url)
+        self.check_element_is_displayed(self.help_center_img)
+        with allure.step("Navigated to the Help page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="help_page", attachment_type=AttachmentType.PNG)
         self.switch_between_tabs()
+        with allure.step("Navigated back to the old tab"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="old_tab", attachment_type=AttachmentType.PNG)

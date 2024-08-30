@@ -1,5 +1,8 @@
+import os
 import time
 
+import allure
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -24,6 +27,18 @@ class RecruitmentPage(WebUtils):
     success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p")
     firstname_tb = (By.NAME, "firstName")
     lastname_tb = (By.NAME, "lastName")
+    applicant_name_txt = (By.XPATH, "//label[text()='Name']/../..//p")
+    applicant_vacancy_txt = (By.XPATH, "//label[text()='Vacancy']/../..//p")
+    download_icn = (By.XPATH, "//i[@class='oxd-icon bi-download']/..")
+
+    month_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-month')]/div")
+    year_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-year')]/div")
+
+    def date_cal(self, date):
+        return By.XPATH, f"//div[contains(@class,'oxd-calendar-date') and text()='{date}']"
+
+    def select_option(self, option):
+        return By.XPATH, f"//li[contains(@class,'oxd-calendar-dropdown--option') and contains(.,'{option}')]"
 
     def add_candidates_tb(self, title):
         return By.XPATH, f"//label[.='{title}']/../../descendant::input"
@@ -46,24 +61,63 @@ class RecruitmentPage(WebUtils):
 
     def verify_the_recruitment_page(self):
         status = self.check_element_is_displayed(self.recruitment_txt)
-        self.attach_screenshot_in_allure("Navigated to the Recruitment page", "recruitment_page")
+        with allure.step("Navigated to the Recruitement page"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="recruitment_page",
+                          attachment_type=AttachmentType.PNG)
         return status
+
+    def click_on_add_button(self):
+        self.click_on_the_element(self.add_btn)
 
     def verify_the_success_toast(self):
-        status = self.check_element_is_displayed(self.success_message_toast)
-        return status
+        message = None
+        try:
+            self.check_element_is_displayed(self.success_message_toast)
+            message = self.get_text_of_the_element(self.success_message_toast)
+            return message
+        except Exception:
+            if message is None:
+                return "Toast message not displayed"
 
-    # def add_candidate(self, name, vacancy, email, contact, keywords, date, notes):
-    #     username = Common_Utils.split_sentence(name)
-    #     self.handle_form(self.form, self.firstname_tb).send_keys(username[0])
-    #     self.handle_form(self.form, self.lastname_tb).send_keys(username[1])
-    #
-    #     self.handle_form(self.form, self.).send_keys()
-    #     self.handle_form(self.form, self.).send_keys()
-    #     self.handle_form(self.form, self.).send_keys()
-    #     self.handle_form(self.form, self.).send_keys()
-    #
-    #     self.handle_form(self.form, self.consent_to_keep_data_cb).click()
-    #     self.handle_form(self.form, self.save_btn).click()
+    def add_candidate(self, name, vacancy, email, contact, keywords, notes, file_path, date=None):
+        username = Common_Utils.split_sentence(name)
+        self.handle_form(self.form, self.firstname_tb).send_keys(username[0])
+        self.handle_form(self.form, self.lastname_tb).send_keys(username[1])
 
+        self.handle_form(self.form, self.vacancy_dd).click()
+        self.handle_form(self.form, self.dropdown_options(vacancy)).click()
 
+        self.handle_form(self.form, self.add_candidates_tb("Email")).send_keys(email)
+        self.handle_form(self.form, self.add_candidates_tb("Contact Number")).send_keys(contact)
+        self.handle_form(self.form, self.add_candidates_tb("Keywords")).send_keys(keywords)
+        if date is not None:
+            self.handle_form(self.form, self.select_date(date))
+
+        file = os.path.join(os.path.dirname(os.path.abspath('.')), file_path)
+        print("FILE_PATH", file)
+        self.handle_form(self.form, self.add_candidates_tb("Resume")).send_keys(file)
+        time.sleep(10)
+        self.scroll_till_bottom_of_the_page()
+        self.handle_form(self.form, self.notes_ta).send_keys(notes)
+        with allure.step("Entered all the mandatory fields"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="add_candidate", attachment_type=AttachmentType.PNG)
+        self.handle_form(self.form, self.save_btn).click()
+
+    def verify_the_candidate_application(self, expected_name, expected_vacancy):
+        actual_name = self.get_text_of_the_element(self.applicant_name_txt)
+        actual_vacancy = self.get_text_of_the_element(self.applicant_vacancy_txt)
+        if actual_name == expected_name:
+            if actual_vacancy == expected_vacancy:
+                return True
+        with allure.step("Candidate Application"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="candidate_records",
+                          attachment_type=AttachmentType.PNG)
+        return False
+
+    def download_candidate_resume(self):
+        self.scroll_using_coordinates(800, 200)
+        with allure.step("Candidates Records"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="candidates_record",
+                          attachment_type=AttachmentType.PNG)
+        self.click_on_the_element(self.download_icn)
+        time.sleep(7)
