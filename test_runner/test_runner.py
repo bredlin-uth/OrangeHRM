@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from generic_utils import Config_Utils, Excel_Utils
+from generic_utils import Excel_Utils
 from pages.admin import AdminPage
 from pages.leave import LeavePage
 from pages.login_logout import LoginPage

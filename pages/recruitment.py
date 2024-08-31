@@ -6,7 +6,7 @@ from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from generic_utils import Common_Utils
+from generic_utils import Common_Utils, Config_Utils
 from generic_utils.Web_Utils import WebUtils
 
 
@@ -61,7 +61,7 @@ class RecruitmentPage(WebUtils):
 
     def verify_the_recruitment_page(self):
         status = self.check_element_is_displayed(self.recruitment_txt)
-        with allure.step("Navigated to the Recruitement page"):
+        with allure.step("Navigated to the Recruitment page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="recruitment_page",
                           attachment_type=AttachmentType.PNG)
         return status
@@ -74,9 +74,11 @@ class RecruitmentPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
+            print(message)
             return message
         except Exception:
             if message is None:
+                print("Toast message not displayed")
                 return "Toast message not displayed"
 
     def add_candidate(self, name, vacancy, email, contact, keywords, notes, file_path, date=None):
@@ -94,9 +96,8 @@ class RecruitmentPage(WebUtils):
             self.handle_form(self.form, self.select_date(date))
 
         file = os.path.join(os.path.dirname(os.path.abspath('.')), file_path)
-        print("FILE_PATH", file)
         self.handle_form(self.form, self.add_candidates_tb("Resume")).send_keys(file)
-        time.sleep(10)
+        time.sleep(2)
         self.scroll_till_bottom_of_the_page()
         self.handle_form(self.form, self.notes_ta).send_keys(notes)
         with allure.step("Entered all the mandatory fields"):
@@ -120,4 +121,5 @@ class RecruitmentPage(WebUtils):
             allure.attach(self.driver.get_screenshot_as_png(), name="candidates_record",
                           attachment_type=AttachmentType.PNG)
         self.click_on_the_element(self.download_icn)
-        time.sleep(7)
+        time.sleep(5)
+        return Common_Utils.get_recent_file(Config_Utils.get_config("directory info", "download_path"))

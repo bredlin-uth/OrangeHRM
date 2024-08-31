@@ -29,9 +29,10 @@ class LoginPage(WebUtils):
         return status
 
     def login_to_the_application(self):
-        credential = Excel_Utils.get_row_excel_data("Credentials", 2)
-        self.set_value_to_the_textfield(self.username_tb, credential[0])
-        self.set_value_to_the_textfield(self.password_tb, credential[1])
+        username = Excel_Utils.fetch_data_from_excel("Credentials", "Testing", "Username")
+        password = Excel_Utils.fetch_data_from_excel("Credentials", "Testing", "Password")
+        self.set_value_to_the_textfield(self.username_tb, username)
+        self.set_value_to_the_textfield(self.password_tb, password)
         with allure.step("Entered all the mandatory field"):
             allure.attach(self.driver.get_screenshot_as_png(), name="login", attachment_type=AttachmentType.PNG)
         self.click_on_the_element(self.login_btn)

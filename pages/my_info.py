@@ -6,7 +6,8 @@ from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from generic_utils import Common_Utils
+import test_runner.conftest
+from generic_utils import Common_Utils, Excel_Utils, Config_Utils
 from generic_utils.Web_Utils import WebUtils
 
 
@@ -75,26 +76,21 @@ class MyInfoPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
+            print(message)
             return message
         except Exception:
             if message is None:
+                print("Toast message not displayed")
                 return "Toast message not displayed"
 
     def add_personal_details(self, name, employee_id, other_id, licence_number, expiry_date, nationality, marital_status, dob, gender):
         username = Common_Utils.split_sentence(name)
 
-        self.handle_form(self.form1, self.firstname_tb).clear()
-        self.handle_form(self.form1, self.firstname_tb).send_keys(username[0])
-        self.handle_form(self.form1, self.lastname_tb).clear()
-        self.handle_form(self.form1, self.lastname_tb).send_keys(username[1])
-
-        self.handle_form(self.form1, self.personal_details_tb("Employee Id")).click()
-        self.handle_form(self.form1, self.personal_details_tb("Employee Id")).clear()
-        self.handle_form(self.form1, self.personal_details_tb("Employee Id")).send_keys(employee_id)
-        self.handle_form(self.form1, self.personal_details_tb("Other Id")).clear()
-        self.handle_form(self.form1, self.personal_details_tb("Other Id")).send_keys(other_id)
-        self.handle_form(self.form1, self.personal_details_tb("License Number")).clear()
-        self.handle_form(self.form1, self.personal_details_tb("License Number")).send_keys(licence_number)
+        self.clear_and_enter(self.firstname_tb, username[0])
+        self.clear_and_enter(self.lastname_tb, username[1])
+        self.clear_and_enter(self.personal_details_tb("Employee Id"), employee_id)
+        self.clear_and_enter(self.personal_details_tb("Other Id"), other_id)
+        self.clear_and_enter(self.personal_details_tb("License Number"), licence_number)
 
         self.handle_form(self.form1, self.license_expiry_date_cal).click()
         self.select_date(expiry_date)
@@ -115,10 +111,14 @@ class MyInfoPage(WebUtils):
     def verify_the_profile_record(self):
         self.click_on_the_element(self.add_btn)
         file_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\sample_file\\SampleExcel.xlsx")
+        expected_data = Excel_Utils.get_row_excel_data("Sheet1", 1, file_path)
         self.handle_form(self.form3, self.personal_details_tb("Select File")).send_keys(file_path)
         self.handle_form(self.form3, self.save3_btn).click()
         with allure.step("Profile Records"):
             allure.attach(self.driver.get_screenshot_as_png(), name="profile_records", attachment_type=AttachmentType.PNG)
         file_name = Common_Utils.split_sentence(file_path,"\\")
         self.click_on_the_element(self.download_icon(file_name[-1]))
-        time.sleep(5)
+        time.sleep(7)
+        downloaded_file = os.path.join(Config_Utils.get_config("directory info", "download_path"), file_name[-1])
+        actual_data = Excel_Utils.get_row_excel_data("Sheet1", 1, downloaded_file)
+        return expected_data == actual_data

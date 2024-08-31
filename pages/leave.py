@@ -83,9 +83,11 @@ class LeavePage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
+            print(message)
             return message
         except Exception:
             if message is None:
+                print("Toast message not displayed")
                 return "Toast message not displayed"
 
     def click_on_my_leave_tab(self):

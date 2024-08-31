@@ -7,7 +7,6 @@ from selenium import webdriver
 
 from generic_utils import Config_Utils, Common_Utils, Excel_Utils
 
-
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
 
@@ -45,4 +44,3 @@ def screenshot_on_failure(request):
     item = request.node
     if item.rep_call.failed:
         allure.attach(driver.get_screenshot_as_png(), name="failed_test", attachment_type=AttachmentType.PNG)
-

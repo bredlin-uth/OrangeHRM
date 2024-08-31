@@ -90,9 +90,11 @@ class AdminPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
+            print(message)
             return message
         except Exception:
             if message is None:
+                print("Toast message not displayed")
                 return "Toast message not displayed"
 
     def verify_the_user_in_the_record(self, username):
@@ -105,6 +107,7 @@ class AdminPage(WebUtils):
     def delete_user(self):
         self.scroll_till_element_is_visible(self.username_txt)
         username = self.get_text_of_the_element(self.username_txt)
+        time.sleep(1)
         self.click_on_the_element(self.select_checkbox(username))
         self.click_on_the_element(self.delete_icon(username))
         self.wait_till_the_element_is_visible(self.yes_delete_button)
