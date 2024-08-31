@@ -1,5 +1,3 @@
-import os
-
 import allure
 import pytest
 
@@ -29,7 +27,7 @@ class Test_Runner:
             admin_page.click_on_add_button()
             add_user = Excel_Utils.get_row_excel_data("Add User", 2)
             username = admin_page.add_user(add_user[0], add_user[1], add_user[2], add_user[3], add_user[4])
-            # assert admin_page.verify_the_success_toast()
+            assert admin_page.verify_the_success_toast()
             assert admin_page.verify_the_user_in_the_record(username)
 
         with allure.step("Delete User"):
@@ -43,7 +41,7 @@ class Test_Runner:
             leave_page.click_on_apply_tab()
             apply_leave = Excel_Utils.get_row_excel_data("Leave", 2)
             leave_page.apply_leave(apply_leave[0], apply_leave[1], apply_leave[2], apply_leave[3])
-            # assert leave_page.verify_the_success_toast()
+            assert leave_page.verify_the_success_toast()
             leave_page.click_on_my_leave_tab()
             assert leave_page.verify_the_applied_leave(apply_leave[0], apply_leave[3])
 
@@ -54,12 +52,13 @@ class Test_Runner:
             recruitment_page.click_on_add_button()
             recruitment = Excel_Utils.get_row_excel_data("Recruitment", 2)
             recruitment_page.add_candidate(recruitment[0], recruitment[1], recruitment[2], recruitment[3], recruitment[4], recruitment[5], recruitment[6])
-            # assert recruitment_page.verify_the_success_toast()
+            assert recruitment_page.verify_the_success_toast()
             assert recruitment_page.verify_the_candidate_application(recruitment[0], recruitment[1])
 
         with allure.step("Candidate Resume Download"):
             dashboard_page.click_on_menu_item("Recruitment")
-            recruitment_page.download_candidate_resume()
+            recent_file = recruitment_page.download_candidate_resume()
+            print("Recently Downloaded file:", recent_file)
 
         with allure.step("Add/Update Personal Details"):
             dashboard_page.click_on_menu_item("My Info")
@@ -67,10 +66,10 @@ class Test_Runner:
             assert my_info_page.verify_the_info_page()
             personal = Excel_Utils.get_row_excel_data("My Info", 2)
             my_info_page.add_personal_details(personal[0], personal[1], personal[2], personal[3], personal[4], personal[5], personal[6], personal[7], personal[8])
-            # assert my_info_page.verify_the_success_toast()
+            assert my_info_page.verify_the_success_toast()
 
-        with allure.step("Download Personal Details"):
-            my_info_page.verify_the_profile_record()
+        with allure.step("Download and Verify Personal Details"):
+            assert my_info_page.verify_the_profile_record()
 
         with allure.step("Orange HRM Help"):
             dashboard_page.click_on_menu_item("PIM")

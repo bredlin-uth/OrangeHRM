@@ -5,7 +5,8 @@ import pytest
 from allure_commons.types import AttachmentType
 from selenium import webdriver
 
-from generic_utils import Config_Utils, Common_Utils
+from generic_utils import Config_Utils, Common_Utils, Excel_Utils
+
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
@@ -17,6 +18,7 @@ def setup_and_teardown(request):
     timestamp = Common_Utils.get_timestamp()
     path = os.path.join(os.path.dirname(os.path.abspath('.')), f"test_output\\download\\download")
     download_path = Common_Utils.create_folder_with_timestamp(path, timestamp)
+    Config_Utils.change_properties_file("directory info", "download_path", download_path)
     if browser == "chrome":
         options = webdriver.ChromeOptions()
         options.add_experimental_option("prefs", {"download.default_directory": download_path})
@@ -31,7 +33,8 @@ def setup_and_teardown(request):
 
     driver.maximize_window()
     driver.implicitly_wait(10)
-    driver.get(Config_Utils.get_config("basic info", "url"))
+    url = Excel_Utils.fetch_data_from_excel("Credentials", "Testing", "URL")
+    driver.get(url)
     request.cls.driver = driver
     yield
     driver.quit()
