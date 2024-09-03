@@ -104,9 +104,8 @@ class AdminPage(WebUtils):
             allure.attach(self.driver.get_screenshot_as_png(), name="user_records", attachment_type=AttachmentType.PNG)
         return status
 
-    def delete_user(self):
-        self.scroll_till_element_is_visible(self.username_txt)
-        username = self.get_text_of_the_element(self.username_txt)
+    def delete_user(self, username):
+        self.scroll_till_element_is_visible(self.select_checkbox(username))
         time.sleep(1)
         self.click_on_the_element(self.select_checkbox(username))
         self.click_on_the_element(self.delete_icon(username))

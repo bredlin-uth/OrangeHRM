@@ -4,7 +4,6 @@ import allure
 from allure_commons.types import AttachmentType
 from selenium.webdriver.common.by import By
 
-from generic_utils import Excel_Utils
 from generic_utils.Web_Utils import WebUtils
 from pages.dashboard import DashboardPage
 
@@ -28,9 +27,7 @@ class LoginPage(WebUtils):
             allure.attach(self.driver.get_screenshot_as_png(), name="login_page", attachment_type=AttachmentType.PNG)
         return status
 
-    def login_to_the_application(self):
-        username = Excel_Utils.fetch_data_from_excel("Credentials", "Testing", "Username")
-        password = Excel_Utils.fetch_data_from_excel("Credentials", "Testing", "Password")
+    def login_to_the_application(self, username, password):
         self.set_value_to_the_textfield(self.username_tb, username)
         self.set_value_to_the_textfield(self.password_tb, password)
         with allure.step("Entered all the mandatory field"):
