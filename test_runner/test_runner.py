@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from generic_utils import Excel_Utils
+from generic_utils import Excel_Utils, Config_Utils
 from pages.admin import AdminPage
 from pages.leave import LeavePage
 from pages.login_logout import LoginPage
@@ -42,7 +42,6 @@ class Test_Runner:
             leave_page.click_on_apply_tab()
             apply_leave = Excel_Utils.fetch_data_as_dicts("Leave")
             leave_page.apply_leave(apply_leave["leave_type"], apply_leave["from_date"], apply_leave["to_date"], apply_leave["comments"])
-
             assert leave_page.verify_the_success_toast()
             leave_page.click_on_my_leave_tab()
             assert leave_page.verify_the_applied_leave(apply_leave["leave_type"], apply_leave["comments"])
@@ -55,7 +54,6 @@ class Test_Runner:
             recruitment = Excel_Utils.fetch_data_as_dicts("Recruitment")
             recruitment_page.add_candidate(recruitment["name"], recruitment["vacancy"], recruitment["email"], recruitment["contact"],
                                            recruitment["data"], recruitment["notes"], recruitment["file_path"])
-
             assert recruitment_page.verify_the_success_toast()
             assert recruitment_page.verify_the_candidate_application(recruitment["name"], recruitment["vacancy"])
 
@@ -71,7 +69,6 @@ class Test_Runner:
             personal = Excel_Utils.fetch_data_as_dicts("My Info")
             my_info_page.add_personal_details(personal["name"], personal["employee_id"], personal["other_id"], personal["licence_number"], personal["expiry_date"],
                                               personal["nationality"], personal["marital_status"], personal["date_of_birth"], personal["gender"])
-
             assert my_info_page.verify_the_success_toast()
 
         with allure.step("Download and Verify Personal Details"):
@@ -81,7 +78,7 @@ class Test_Runner:
             dashboard_page.click_on_menu_item("PIM")
             pim_page = PimPage(self.driver)
             assert pim_page.verify_the_pim_page()
-            pim_page.verify_orange_hrm_help("starterhelp.orangehrm.com")
+            pim_page.verify_orange_hrm_help(Config_Utils.get_config("url info", "help_url"))
 
         with allure.step("Extract Data from Canvas"):
             dashboard_page.click_on_menu_item("Dashboard")

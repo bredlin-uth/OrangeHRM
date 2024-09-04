@@ -55,15 +55,20 @@ class MyInfoPage(WebUtils):
     def select_date(self, date):
         split_date = Common_Utils.split_sentence(date)
         time.sleep(2)
-        self.handle_form(self.form1, self.year_cal).click()
+        # self.handle_form(self.form1, self.year_cal).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form1, self.year_cal)).click()
         time.sleep(2)
-        self.handle_form(self.form1, self.select_option(split_date[2])).click()
-        time.sleep(1)
-        self.handle_form(self.form1, self.month_cal).click()
-        time.sleep(1)
-        self.handle_form(self.form1, self.select_option(split_date[1])).click()
+        # self.handle_form(self.form1, self.select_option(split_date[2])).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form1, self.select_option(split_date[2]))).click()
         time.sleep(2)
-        self.handle_form(self.form1, self.date_cal(str(split_date[0]))).click()
+        # self.handle_form(self.form1, self.month_cal).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form1, self.month_cal)).click()
+        time.sleep(2)
+        # self.handle_form(self.form1, self.select_option(split_date[1])).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form1, self.select_option(split_date[1]))).click()
+        time.sleep(2)
+        # self.handle_form(self.form1, self.date_cal(str(split_date[0]))).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form1, self.date_cal(str(split_date[0])))).click()
 
     def verify_the_info_page(self):
         status = self.check_element_is_displayed(self.personal_details_txt)
@@ -110,15 +115,16 @@ class MyInfoPage(WebUtils):
 
     def verify_the_profile_record(self):
         self.click_on_the_element(self.add_btn)
-        file_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\sample_file\\SampleExcel.xlsx")
+        file_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "sample_file"))
         expected_data = Excel_Utils.get_row_excel_data("Sheet1", 1, file_path)
+        time.sleep(2)
         self.handle_form(self.form3, self.personal_details_tb("Select File")).send_keys(file_path)
         self.handle_form(self.form3, self.save3_btn).click()
         with allure.step("Profile Records"):
             allure.attach(self.driver.get_screenshot_as_png(), name="profile_records", attachment_type=AttachmentType.PNG)
-        file_name = Common_Utils.split_sentence(file_path,"\\")
+        file_name = Common_Utils.split_sentence(file_path, "\\")
         self.click_on_the_element(self.download_icon(file_name[-1]))
-        time.sleep(7)
+        time.sleep(10)
         downloaded_file = os.path.join(Config_Utils.get_config("directory info", "download_path"), file_name[-1])
         actual_data = Excel_Utils.get_row_excel_data("Sheet1", 1, downloaded_file)
         return expected_data == actual_data

@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class WebUtils:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 15)
         # self.driver = webdriver.Chrome()
 
     def click_on_the_element(self, element):
@@ -41,14 +41,16 @@ class WebUtils:
 
     def wait_till_the_element_is_visible(self, element):
         try:
-            element = self.wait.until(
-                EC.visibility_of_element_located(element))
+            self.wait.until(EC.visibility_of_element_located(element))
         except Exception as e:
             print(f"Element is not visible: {e}")
 
-    def attach_screenshot_in_allure(self, step_name, file_name):
-        with allure.step(step_name):
-            allure.attach(self.driver.get_screenshot_as_png(), name=file_name, attachment_type=AttachmentType.PNG)
+    def wait_till_the_element_visible(self, element):
+        try:
+            ele = self.wait.until(EC.visibility_of(element))
+        except Exception as e:
+            print(f"Element is not visible: {e}")
+        return ele
 
     def handle_form(self, form_element, element):
         form = self.wait.until(EC.visibility_of_element_located(form_element))

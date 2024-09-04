@@ -41,6 +41,7 @@ def create_folder_with_timestamp(folder_path, timestamp):
         return folder_name
     except FileExistsError:
         print(f"Folder already exists: {folder_name}")
+        return folder_name
 
 
 def get_recent_file(directory):

@@ -57,13 +57,13 @@ class LeavePage(WebUtils):
         split_date = Common_Utils.split_sentence(date)
         time.sleep(2)
         self.handle_form(self.form, self.year_cal).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.select_option(split_date[2])).click()
-        time.sleep(1)
+        time.sleep(3)
         self.handle_form(self.form, self.month_cal).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.select_option(split_date[1])).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.date_cal(str(split_date[0]))).click()
 
     def apply_leave(self, leave_type, from_date, to_date, comments):

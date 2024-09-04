@@ -50,13 +50,13 @@ class RecruitmentPage(WebUtils):
         split_date = Common_Utils.split_sentence(date)
         time.sleep(2)
         self.handle_form(self.form, self.year_cal).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.select_option(split_date[2])).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.month_cal).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.select_option(split_date[1])).click()
-        time.sleep(1)
+        time.sleep(2)
         self.handle_form(self.form, self.date_cal(str(split_date[0]))).click()
 
     def verify_the_recruitment_page(self):
@@ -120,6 +120,7 @@ class RecruitmentPage(WebUtils):
         with allure.step("Candidates Records"):
             allure.attach(self.driver.get_screenshot_as_png(), name="candidates_record",
                           attachment_type=AttachmentType.PNG)
+        self.wait_till_the_element_is_visible(self.download_icn)
         self.click_on_the_element(self.download_icn)
         time.sleep(5)
         return Common_Utils.get_recent_file(Config_Utils.get_config("directory info", "download_path"))

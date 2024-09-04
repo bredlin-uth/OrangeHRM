@@ -68,7 +68,8 @@ class AdminPage(WebUtils):
 
     def add_user(self, user_role, status, employee_name, username, password):
         self.wait_till_the_element_is_visible(self.form)
-        self.attach_screenshot_in_allure("Add User", "navigated_to_add_user")
+        with allure.step("Add User"):
+            allure.attach(self.driver.get_screenshot_as_png(), name="navigated_to_add_user", attachment_type=AttachmentType.PNG)
 
         self.handle_form(self.form, self.user_role_dd).click()
         self.handle_form(self.form, self.dropdown_options(user_role)).click()
