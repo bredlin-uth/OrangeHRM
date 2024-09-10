@@ -1,0 +1,2 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","21875","test_add_user","","Tue Sep 10 17:09:05 IST 2024","passed","Tue Sep 10 17:09:27 IST 2024","Test_TC001_Admin","test_add_user","",""
