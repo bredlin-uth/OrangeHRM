@@ -26,7 +26,7 @@ class AdminPage(WebUtils):
     confirm_password_tb = (By.XPATH, "//label[.='Confirm Password']/../../descendant::input")
     save_btn = (By.XPATH, "//button[contains(.,'Save')]")
     form = (By.XPATH, "//form[@class='oxd-form']")
-    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p")
+    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p[contains(@class, 'toast-message')]")
     username_txt = (By.XPATH, "(//div[@class='oxd-table-card']/div/div[2]/div)[2]")
     yes_delete_button = (By.XPATH, "//button[contains(.,'Yes, Delete')]")
 
@@ -76,7 +76,7 @@ class AdminPage(WebUtils):
         self.handle_form(self.form, self.status_dd).click()
         self.handle_form(self.form, self.dropdown_options(status)).click()
         self.handle_form(self.form, self.employee_name_tb).send_keys(employee_name)
-        self.handle_form(self.form, self.dropdown_options(employee_name)).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.dropdown_options(employee_name))).click()
         username1 = username + str(Common_Utils.generate_random_number(5))
         self.handle_form(self.form, self.username_tb).send_keys(username1)
         self.handle_form(self.form, self.password_tb).send_keys(password)

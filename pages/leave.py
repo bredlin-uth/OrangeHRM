@@ -2,7 +2,6 @@ import time
 
 import allure
 from allure_commons.types import AttachmentType
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 from generic_utils import Common_Utils
@@ -27,7 +26,7 @@ class LeavePage(WebUtils):
     form = (By.XPATH, "//form[@class='oxd-form']")
     month_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-month')]/div")
     year_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-year')]/div")
-    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p")
+    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p[contains(@class, 'toast-message')]")
 
     def dropdown_options(self, value):
         return By.XPATH, f"//div[@role='option']/span[contains(.,'{value}')]"
@@ -56,15 +55,18 @@ class LeavePage(WebUtils):
     def select_date(self, date):
         split_date = Common_Utils.split_sentence(date)
         time.sleep(2)
-        self.handle_form(self.form, self.year_cal).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.year_cal)).click()
         time.sleep(2)
-        self.handle_form(self.form, self.select_option(split_date[2])).click()
-        time.sleep(3)
-        self.handle_form(self.form, self.month_cal).click()
+        self.scroll_using_coordinates(300, -200)
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.select_option(split_date[2]))).click()
         time.sleep(2)
-        self.handle_form(self.form, self.select_option(split_date[1])).click()
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.month_cal)).click()
         time.sleep(2)
-        self.handle_form(self.form, self.date_cal(str(split_date[0]))).click()
+        self.scroll_using_coordinates(300, -200)
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.select_option(split_date[1]))).click()
+        time.sleep(2)
+        self.scroll_using_coordinates(0, 0)
+        self.wait_till_the_element_visible(self.handle_form(self.form, self.date_cal(str(split_date[0])))).click()
 
     def apply_leave(self, leave_type, from_date, to_date, comments):
         self.handle_form(self.form, self.leave_type_dd).click()
@@ -79,16 +81,14 @@ class LeavePage(WebUtils):
         self.handle_form(self.form, self.apply_btn).click()
 
     def verify_the_success_toast(self):
-        message = None
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
             print(message)
             return message
         except Exception:
-            if message is None:
-                print("Toast message not displayed")
-                return "Toast message not displayed"
+            print("Toast message not displayed")
+            return "Toast message not displayed"
 
     def click_on_my_leave_tab(self):
         self.click_on_the_element(self.my_leave_tab)

@@ -33,7 +33,8 @@ class DashboardPage(WebUtils):
         time.sleep(2)
         
     def extract_data_from_canvas(self):
-        self.scroll_using_coordinates(0, 200)
+        time.sleep(2)
+        self.scroll_using_coordinates(0, 250)
         self.mouse_over_on_the_element(self.employee_distribution_canvas, 50, 50)
         self.wait_till_the_element_is_visible(self.tool_tip)
         with allure.step("Pie Chart"):

@@ -22,6 +22,7 @@ class LoginPage(WebUtils):
     logout_opt = (By.XPATH, "//li/a[text()='Logout']")
 
     def verify_the_login_page(self):
+        time.sleep(1)
         status = self.check_element_is_displayed(self.login_txt)
         with allure.step("Navigated to the Login page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="login_page", attachment_type=AttachmentType.PNG)

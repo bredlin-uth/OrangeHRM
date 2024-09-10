@@ -3,20 +3,17 @@ import pytest
 
 from generic_utils import Excel_Utils, Config_Utils
 from pages.admin import AdminPage
-from pages.leave import LeavePage
 from pages.login_logout import LoginPage
-from pages.my_info import MyInfoPage
-from pages.pim import PimPage
-from pages.recruitment import RecruitmentPage
 
-@pytest.mark.usefixtures("setup_and_teardown")
+@pytest.mark.usefixtures("setup_and_teardown", "screenshot_on_failure")
 class Test_TC002_Admin:
     def test_delete_user(self):
-
+        excel_path = Config_Utils.get_config("directory info", "excel_path")
         with allure.step("Login to the application"):
             login_page = LoginPage(self.driver)
             assert login_page.verify_the_login_page()
             credentials = Excel_Utils.fetch_data_as_dicts("Credentials")
+            Excel_Utils.write_data_to_excel(excel_path, "Delete User", credentials)
             dashboard_page = login_page.login_to_the_application(credentials["Username"], credentials["Password"])
             assert dashboard_page.verify_the_dashboard_page()
 
@@ -27,12 +24,15 @@ class Test_TC002_Admin:
             admin_page.select_users_from_the_dropdown("User Management", "Users")
             admin_page.click_on_add_button()
             add_user = Excel_Utils.fetch_data_as_dicts("Add User")
+            Excel_Utils.write_data_to_excel(excel_path, "Delete User", add_user)
             username = admin_page.add_user(add_user["user_role"], add_user["status"], add_user["employee_name"], add_user["username"], add_user["password"])
-            assert admin_page.verify_the_success_toast()
+            success_message = admin_page.verify_the_success_toast()
+            Excel_Utils.write_data_to_excel(excel_path, "Delete User", success_message)
             assert admin_page.verify_the_user_in_the_record(username)
 
         with allure.step("Delete User"):
             username = admin_page.delete_user(username)
+            Excel_Utils.write_data_to_excel(excel_path, "Delete User", {"Deleted User": username})
             assert admin_page.verify_the_user_is_deleted(username)
 
         with allure.step("Log out from the application"):

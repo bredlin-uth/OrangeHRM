@@ -6,7 +6,6 @@ from allure_commons.types import AttachmentType
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-import test_runner.conftest
 from generic_utils import Common_Utils, Excel_Utils, Config_Utils
 from generic_utils.Web_Utils import WebUtils
 
@@ -27,7 +26,7 @@ class MyInfoPage(WebUtils):
     date_of_birth_cal = (By.XPATH, "//label[.='Date of Birth']/../../descendant::input")
     license_expiry_date_cal = (By.XPATH, "//label[.='License Expiry Date']/../../descendant::input")
 
-    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p")
+    success_message_toast = (By.XPATH, "//div[@class='oxd-toast-start']/descendant::p[contains(@class, 'toast-message')]")
     firstname_tb = (By.NAME, "firstName")
     lastname_tb = (By.NAME, "lastName")
     month_cal = (By.XPATH, "//li[contains(@class,'oxd-calendar-selector-month')]/div")
@@ -55,19 +54,17 @@ class MyInfoPage(WebUtils):
     def select_date(self, date):
         split_date = Common_Utils.split_sentence(date)
         time.sleep(2)
-        # self.handle_form(self.form1, self.year_cal).click()
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.year_cal)).click()
         time.sleep(2)
-        # self.handle_form(self.form1, self.select_option(split_date[2])).click()
+        self.scroll_using_coordinates(300, -100)
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.select_option(split_date[2]))).click()
         time.sleep(2)
-        # self.handle_form(self.form1, self.month_cal).click()
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.month_cal)).click()
         time.sleep(2)
-        # self.handle_form(self.form1, self.select_option(split_date[1])).click()
+        self.scroll_using_coordinates(300, -100)
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.select_option(split_date[1]))).click()
         time.sleep(2)
-        # self.handle_form(self.form1, self.date_cal(str(split_date[0]))).click()
+        self.scroll_using_coordinates(0, 0)
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.date_cal(str(split_date[0])))).click()
 
     def verify_the_info_page(self):
@@ -81,11 +78,9 @@ class MyInfoPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
-            print(message)
             return message
         except Exception:
             if message is None:
-                print("Toast message not displayed")
                 return "Toast message not displayed"
 
     def add_personal_details(self, name, employee_id, other_id, licence_number, expiry_date, nationality, marital_status, dob, gender):
@@ -96,14 +91,15 @@ class MyInfoPage(WebUtils):
         self.clear_and_enter(self.personal_details_tb("Employee Id"), employee_id)
         self.clear_and_enter(self.personal_details_tb("Other Id"), other_id)
         self.clear_and_enter(self.personal_details_tb("License Number"), licence_number)
-
         self.handle_form(self.form1, self.license_expiry_date_cal).click()
         self.select_date(expiry_date)
         self.scroll_using_coordinates(0, 0)
         self.handle_form(self.form1, self.date_of_birth_cal).click()
+        self.scroll_using_coordinates(300, 0)
         self.select_date(dob)
         self.scroll_using_coordinates(0, 0)
         self.handle_form(self.form1, self.nationality_dd).click()
+        time.sleep(2)
         self.handle_form(self.form1, self.dropdown_options(nationality)).click()
         self.handle_form(self.form1, self.marital_status_dd).click()
         self.handle_form(self.form1, self.dropdown_options(marital_status)).click()
@@ -118,6 +114,7 @@ class MyInfoPage(WebUtils):
         file_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "sample_file"))
         expected_data = Excel_Utils.get_row_excel_data("Sheet1", 1, file_path)
         time.sleep(2)
+        self.scroll_using_coordinates(300, 300)
         self.handle_form(self.form3, self.personal_details_tb("Select File")).send_keys(file_path)
         self.handle_form(self.form3, self.save3_btn).click()
         with allure.step("Profile Records"):
