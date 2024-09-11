@@ -1,8 +1,5 @@
 import time
 
-import allure
-from allure_commons.types import AttachmentType
-from selenium import webdriver
 from selenium.common import ElementClickInterceptedException, NoSuchElementException, ElementNotVisibleException
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By

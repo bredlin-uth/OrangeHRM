@@ -2,7 +2,8 @@ import os
 import time
 from configparser import ConfigParser
 
-config_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\config.ini")
+# config_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\config.ini")
+config_path = os.path.join(os.path.abspath('.'), "test_data\\config.ini")
 
 def get_config(section, option):
     config = ConfigParser()

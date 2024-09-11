@@ -96,8 +96,8 @@ class RecruitmentPage(WebUtils):
         self.handle_form(self.form, self.add_candidates_tb("Keywords")).send_keys(keywords)
         if date is not None:
             self.handle_form(self.form, self.select_date(date))
-
-        file = os.path.join(os.path.dirname(os.path.abspath('.')), file_path)
+        # file = os.path.join(os.path.dirname(os.path.abspath('.')), file_path)
+        file = os.path.join(os.path.abspath('.'), file_path)
         self.handle_form(self.form, self.add_candidates_tb("Resume")).send_keys(file)
         time.sleep(2)
         self.scroll_till_bottom_of_the_page()

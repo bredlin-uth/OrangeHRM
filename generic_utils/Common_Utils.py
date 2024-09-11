@@ -3,9 +3,6 @@ import os
 import random
 import re
 
-from generic_utils import Config_Utils
-
-
 def generate_random_number(digits):
     digits = [str(random.randint(0, 9)) for _ in range(digits)]
     random_number = int(''.join(digits))

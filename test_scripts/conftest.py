@@ -11,11 +11,17 @@ from generic_utils import Excel_Utils, Config_Utils, Common_Utils
 @pytest.fixture(scope='session')
 def download_dir():
     timestamp = Common_Utils.get_timestamp()
-    download_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "download_folder"))
-    excel_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "excel_output"))
+    print(timestamp)
+    # download_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "download_folder"))
+    # excel_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "excel_output"))
+    download_path = os.path.join(os.path.abspath('.'),
+                                 Config_Utils.get_config("directory info", "download_folder"))
+    excel_path = os.path.join(os.path.abspath('.'),
+                              Config_Utils.get_config("directory info", "excel_output"))
+
     download_directory = Common_Utils.create_folder_with_timestamp(download_path, timestamp)
     excel_dir = Common_Utils.create_folder_with_timestamp(excel_path, timestamp)
-    excel_directory = Excel_Utils.create_a_excel_file(os.path.join(excel_dir,"Excel_Report.xlsx"))
+    excel_directory = Excel_Utils.create_a_excel_file(os.path.join(excel_dir, "Excel_Report.xlsx"))
     exc = 0
     if exc == 0:
         Config_Utils.change_properties_file("directory info", "download_path", download_directory)

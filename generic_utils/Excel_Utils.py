@@ -4,9 +4,8 @@ import openpyxl
 from openpyxl.reader.excel import load_workbook
 from openpyxl.workbook import Workbook
 
-from generic_utils import Config_Utils, Common_Utils
-
-excel_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\Data.xlsx")
+# excel_path = os.path.join(os.path.dirname(os.path.abspath('.')), "test_data\\Data.xlsx")
+excel_path = os.path.join(os.path.abspath('.'), "test_data\\Data.xlsx")
 
 
 def get_row_count(sheet_name):
@@ -68,7 +67,6 @@ def fetch_data_by_row_header(sheet_name, row_header_value, path=excel_path):
     try:
         workbook = openpyxl.load_workbook(path)
         sheet = workbook[sheet_name]
-
         # Find the row index based on the row header value
         row_index = None
         for row_num, row in enumerate(sheet.iter_rows(values_only=True), start=1):
@@ -78,13 +76,11 @@ def fetch_data_by_row_header(sheet_name, row_header_value, path=excel_path):
         print(row_index)
         if row_index is None:
             raise ValueError(f"Row header '{row_header_value}' not found in sheet '{sheet_name}'.")
-
         # Extract data from the specified row
         data = []
         for cell in sheet.iter_rows(min_row=row_index, max_row=row_index, values_only=True):
             print()
             data.append(list(cell))
-
         return data
     except Exception as e:
         print(f"Error: {e}")
@@ -127,18 +123,14 @@ def extract_whole_data_as_dicts(filename, sheet_name):
     try:
         workbook = openpyxl.load_workbook(filename)
         sheet = workbook[sheet_name]
-
         # Extract column headers
         headers = [cell.value for cell in sheet[1]]
-
         # Extract data rows
         data = []
         for row in sheet.iter_rows(min_row=2, values_only=True):
             row_dict = dict(zip(headers, row))
             data.append(row_dict)
-
         return data
-
     except Exception as e:
         print(f"Error: {e}")
         return []
@@ -160,20 +152,16 @@ def extract_data_as_dicts(row_header, sheet_name, filename=excel_path):
     try:
         workbook = openpyxl.load_workbook(filename)
         sheet = workbook[sheet_name]
-
         # Find the row index based on the row header value
         row_index = None
         for row_num, row in enumerate(sheet.iter_rows(values_only=True), start=1):
             if row_header in row:
                 row_index = row_num
                 break
-
         if row_index is None:
             raise ValueError(f"Row header '{row_header}' not found in sheet '{sheet_name}'.")
-
         # Extract column headers
         headers = [cell.value for cell in sheet[1]]
-
         # Extract data rows
         row_dict = ()
         for row in sheet.iter_rows(min_row=row_index, values_only=True):
@@ -181,7 +169,6 @@ def extract_data_as_dicts(row_header, sheet_name, filename=excel_path):
             row_dict = dict(zip(headers, row))
             break
         return row_dict
-
     except Exception as e:
         print(f"Error: {e}")
         return ()
@@ -240,12 +227,3 @@ def write_data_to_excel(file_path, sheet_name, data):
     # Save the workbook
     wb.save(file_path)
 
-# file_path = "C:\\Workspace\\Python\\UTH\\OrangeHRM\\test_output\\excel\\excel_2024-09-09_16-46-47\\exx.xlsx"
-# sheet_name = "Sheet1"
-# # Writing a list of data
-# list_data = ["Item1", "Item2", "Item3"]
-# write_data_to_excel(file_path, sheet_name, list_data)
-#
-# # Writing a single data item
-# single_data = "SingleItem"
-# write_data_to_excel(file_path, sheet_name, single_data)

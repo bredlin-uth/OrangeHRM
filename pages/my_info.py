@@ -111,7 +111,8 @@ class MyInfoPage(WebUtils):
 
     def verify_the_profile_record(self):
         self.click_on_the_element(self.add_btn)
-        file_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "sample_file"))
+        # file_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "sample_file"))
+        file_path = os.path.join(os.path.abspath('.'), Config_Utils.get_config("directory info", "sample_file"))
         expected_data = Excel_Utils.get_row_excel_data("Sheet1", 1, file_path)
         time.sleep(2)
         self.scroll_using_coordinates(300, 300)

@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 
 from generic_utils import Common_Utils
 from generic_utils.Web_Utils import WebUtils
-from pages.dashboard import DashboardPage
 
 
 class AdminPage(WebUtils):
