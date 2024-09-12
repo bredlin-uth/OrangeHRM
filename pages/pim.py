@@ -22,15 +22,20 @@ class PimPage(WebUtils):
         status = self.check_element_is_displayed(self.pim_txt)
         with allure.step("Navigated to the PIM page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="pim_page", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated to the PIM page")
         return status
 
     def verify_orange_hrm_help(self,url):
         self.click_on_the_element(self.help_icn)
+        self.log.info("Clicked on the Help icon")
         self.switch_between_tabs()
+        self.log.info("Switched between the tabs")
         self.verify_the_url(url)
         self.check_element_is_displayed(self.help_center_img)
         with allure.step("Navigated to the Help page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="help_page", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated to the Help page")
         self.switch_between_tabs()
         with allure.step("Navigated back to the old tab"):
             allure.attach(self.driver.get_screenshot_as_png(), name="old_tab", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated back to the old tab")

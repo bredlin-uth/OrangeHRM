@@ -66,11 +66,13 @@ class MyInfoPage(WebUtils):
         time.sleep(2)
         self.scroll_using_coordinates(0, 0)
         self.wait_till_the_element_visible(self.handle_form(self.form1, self.date_cal(str(split_date[0])))).click()
+        self.log.info("Selected the date")
 
     def verify_the_info_page(self):
         status = self.check_element_is_displayed(self.personal_details_txt)
         with allure.step("Navigated to the My Info page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="my_info_page", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated to the My Info page")
         return status
 
     def verify_the_success_toast(self):
@@ -78,10 +80,12 @@ class MyInfoPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
+            self.log.info(f"{message} toast message is displayed")
             return message
         except Exception:
             if message is None:
-                return "Toast message not displayed"
+                self.log.warn("Toast message is not displayed")
+                return "Toast message is not displayed"
 
     def add_personal_details(self, name, employee_id, other_id, licence_number, expiry_date, nationality, marital_status, dob, gender):
         username = Common_Utils.split_sentence(name)
@@ -107,22 +111,30 @@ class MyInfoPage(WebUtils):
         self.handle_form(self.form1, self.gender_rb(gender)).click()
         with allure.step("Entered all the mandatory fields"):
             allure.attach(self.driver.get_screenshot_as_png(), name="personal_details", attachment_type=AttachmentType.PNG)
+        self.log.info("Entered all the mandatory fields")
         self.handle_form(self.form1, self.save1_btn).click()
+        self.log.info("Clicked on the Save button")
 
     def verify_the_profile_record(self):
         self.click_on_the_element(self.add_btn)
+        self.log.info("Clicked on the Add button")
         # file_path = os.path.join(os.path.dirname(os.path.abspath('.')), Config_Utils.get_config("directory info", "sample_file"))
         file_path = os.path.join(os.path.abspath('.'), Config_Utils.get_config("directory info", "sample_file"))
         expected_data = Excel_Utils.get_row_excel_data("Sheet1", 1, file_path)
         time.sleep(2)
         self.scroll_using_coordinates(300, 300)
         self.handle_form(self.form3, self.personal_details_tb("Select File")).send_keys(file_path)
+        self.log.info("File is uploaded")
         self.handle_form(self.form3, self.save3_btn).click()
+        self.log.info("Clicked on the Save button")
         with allure.step("Profile Records"):
             allure.attach(self.driver.get_screenshot_as_png(), name="profile_records", attachment_type=AttachmentType.PNG)
+        self.log.info("Verified the profile in the record")
         file_name = Common_Utils.split_sentence(file_path, "\\")
         self.click_on_the_element(self.download_icon(file_name[-1]))
+        self.log.info("Downloaded the profile from the record")
         time.sleep(10)
         downloaded_file = os.path.join(Config_Utils.get_config("directory info", "download_path"), file_name[-1])
         actual_data = Excel_Utils.get_row_excel_data("Sheet1", 1, downloaded_file)
+        self.log.info("Verified the profile record")
         return expected_data == actual_data

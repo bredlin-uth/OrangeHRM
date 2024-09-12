@@ -6,11 +6,15 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from generic_utils import Log_Utils
+from generic_utils.Log_Utils import get_logger
+
 
 class WebUtils:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 15)
+        self.log = get_logger(self.__class__.__name__)
         # self.driver = webdriver.Chrome()
 
     def click_on_the_element(self, element):

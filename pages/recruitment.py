@@ -60,28 +60,31 @@ class RecruitmentPage(WebUtils):
         self.handle_form(self.form, self.select_option(split_date[1])).click()
         time.sleep(2)
         self.handle_form(self.form, self.date_cal(str(split_date[0]))).click()
+        self.log.info("Selected the date")
 
     def verify_the_recruitment_page(self):
         status = self.check_element_is_displayed(self.recruitment_txt)
         with allure.step("Navigated to the Recruitment page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="recruitment_page",
                           attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated to the Recruitment page")
         return status
 
     def click_on_add_button(self):
         self.click_on_the_element(self.add_btn)
+        self.log.info("Clicked on the Add button")
 
     def verify_the_success_toast(self):
         message = None
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
-            print(message)
+            self.log.info(f"{message} toast message is displayed")
             return message
         except Exception:
             if message is None:
-                print("Toast message not displayed")
-                return "Toast message not displayed"
+                self.log.warn("Toast message is not displayed")
+                return "Toast message is not displayed"
 
     def add_candidate(self, name, vacancy, email, contact, keywords, notes, file_path, date=None):
         username = Common_Utils.split_sentence(name)
@@ -104,7 +107,9 @@ class RecruitmentPage(WebUtils):
         self.handle_form(self.form, self.notes_ta).send_keys(notes)
         with allure.step("Entered all the mandatory fields"):
             allure.attach(self.driver.get_screenshot_as_png(), name="add_candidate", attachment_type=AttachmentType.PNG)
+        self.log.info("Entered all the mandatory fields")
         self.handle_form(self.form, self.save_btn).click()
+        self.log.info("Clicked on the Save button")
 
     def verify_the_candidate_application(self, expected_name, expected_vacancy):
         actual_name = self.get_text_of_the_element(self.applicant_name_txt)
@@ -115,6 +120,7 @@ class RecruitmentPage(WebUtils):
         with allure.step("Candidate Application"):
             allure.attach(self.driver.get_screenshot_as_png(), name="candidate_records",
                           attachment_type=AttachmentType.PNG)
+        self.log.info("Verified the candidate application")
         return False
 
     def download_candidate_resume(self):
@@ -124,5 +130,7 @@ class RecruitmentPage(WebUtils):
                           attachment_type=AttachmentType.PNG)
         self.wait_till_the_element_is_visible(self.download_icn)
         self.click_on_the_element(self.download_icn)
+        self.log.info("Downloaded the candidate resume")
         time.sleep(5)
         return Common_Utils.get_recent_file(Config_Utils.get_config("directory info", "download_path"))
+        self.log.info("Verified the candidate resume")

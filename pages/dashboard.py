@@ -26,10 +26,12 @@ class DashboardPage(WebUtils):
         status = self.check_element_is_displayed(self.dashboard_txt)
         with allure.step("Navigated to the Dashboard page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="dashboard_page", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigated to the Dashboard page")
         return status
 
     def click_on_menu_item(self, menu):
         self.click_on_the_element(self.menu_item_lnk(menu))
+        self.log.info(f"Clicked on the {menu} menu")
         time.sleep(2)
         
     def extract_data_from_canvas(self):
@@ -39,4 +41,5 @@ class DashboardPage(WebUtils):
         self.wait_till_the_element_is_visible(self.tool_tip)
         with allure.step("Pie Chart"):
             allure.attach(self.driver.get_screenshot_as_png(), name="canvas_data", attachment_type=AttachmentType.PNG)
+        self.log.info("Extracted the data from the canvas")
         return self.get_text_of_the_element(self.tool_tip)

@@ -50,20 +50,25 @@ class AdminPage(WebUtils):
 
     def verify_the_admin_page(self):
         status = self.check_element_is_displayed(self.admin_txt)
-        with allure.step("Navigate to the admin page"):
+        with allure.step("Navigate to the Admin page"):
             allure.attach(self.driver.get_screenshot_as_png(), name="admin_page", attachment_type=AttachmentType.PNG)
+        self.log.info("Navigate to the Admin page")
         return status
 
     def select_users_from_the_dropdown(self, menu, item):
         self.click_on_the_element(self.top_bar_tab_menu(menu))
+        self.log.info(f"Clicked on the {menu} menu")
         self.wait_till_the_element_is_visible(self.top_bar_tab_menu_items(item))
         self.click_on_the_element(self.top_bar_tab_menu_items(item))
+        self.log.info(f"Clicked on the {item} item")
         with allure.step(f"Navigate to the {menu} page"):
             allure.attach(self.driver.get_screenshot_as_png(), name=f"{menu}_page", attachment_type=AttachmentType.PNG)
+        self.log.info(f"Navigated to the {menu} page")
 
     def click_on_add_button(self):
         self.wait_till_the_element_is_visible(self.add_btn)
         self.click_on_the_element(self.add_btn)
+        self.log.info(f"Clicked on the Add button")
 
     def add_user(self, user_role, status, employee_name, username, password):
         self.wait_till_the_element_is_visible(self.form)
@@ -82,7 +87,9 @@ class AdminPage(WebUtils):
         self.handle_form(self.form, self.confirm_password_tb).send_keys(password)
         with allure.step("Entered the field for the add user "):
             allure.attach(self.driver.get_screenshot_as_png(), name="add_user", attachment_type=AttachmentType.PNG)
+        self.log.info("Entered all the mandatory fields")
         self.handle_form(self.form, self.save_btn).click()
+        self.log.info("Clicked on the Save button")
         return username1
 
     def verify_the_success_toast(self):
@@ -90,18 +97,19 @@ class AdminPage(WebUtils):
         try:
             self.check_element_is_displayed(self.success_message_toast)
             message = self.get_text_of_the_element(self.success_message_toast)
-            print(message)
+            self.log.info(f"{message} toast message is displayed")
             return message
         except Exception:
             if message is None:
-                print("Toast message not displayed")
-                return "Toast message not displayed"
+                self.log.warn("Toast message is not displayed")
+                return "Toast message is not displayed"
 
     def verify_the_user_in_the_record(self, username):
         self.scroll_using_coordinates(0, 200)
         status = self.check_element_is_displayed(self.record_username(username))
         with allure.step("User Records"):
             allure.attach(self.driver.get_screenshot_as_png(), name="user_records", attachment_type=AttachmentType.PNG)
+        self.log.info("Verified the user in the record")
         return status
 
     def delete_user(self, username):
@@ -109,10 +117,12 @@ class AdminPage(WebUtils):
         time.sleep(1)
         self.click_on_the_element(self.select_checkbox(username))
         self.click_on_the_element(self.delete_icon(username))
+        self.log.info(f"Clicked on the Delete Icon for the {username} user")
         self.wait_till_the_element_is_visible(self.yes_delete_button)
         with allure.step("Delete Popup"):
             allure.attach(self.driver.get_screenshot_as_png(), name="are_you_sure", attachment_type=AttachmentType.PNG)
         self.click_on_the_element(self.yes_delete_button)
+        self.log.info("Clicked on the Yes Delete button")
         return username
 
     def verify_the_user_is_deleted(self, username):
@@ -120,6 +130,7 @@ class AdminPage(WebUtils):
         status = self.is_element_not_displayed(self.record_username(username))
         with allure.step("User Records after Deleting"):
             allure.attach(self.driver.get_screenshot_as_png(), name="records_after_deletion", attachment_type=AttachmentType.PNG)
+        self.log.info(f"After Deleting {username} from the record is deleted")
         return status
 
 
