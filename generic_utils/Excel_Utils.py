@@ -227,3 +227,24 @@ def write_data_to_excel(file_path, sheet_name, data):
     # Save the workbook
     wb.save(file_path)
 
+def modify_the_excel_data(new_value, row_header, sheet_name, filename=excel_path):
+    try:
+        workbook = openpyxl.open(filename)
+        sheet = workbook[sheet_name]
+
+        row_index = None
+        for row_num, row in enumerate(sheet.iter_rows(values_only=True), start=1):
+            if row_header in row:
+                row_index = row_num
+                break
+        col_index = None
+        for col_index, col in enumerate(sheet.iter_cols(values_only=True), start=1):
+            if row_header in col:
+                break
+        sheet.cell(row_index + 1, col_index).value = new_value
+        workbook.save(filename)
+    except Exception as e:
+        print(f"Error updating value: {e}")
+
+
+modify_the_excel_data("Ricky", "username", "Add User", "C:\\Workspace\\Python\\UTH\\OrangeHRM\\test_data\\Data.xlsx")

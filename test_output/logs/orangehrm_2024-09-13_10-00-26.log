@@ -1,0 +1,151 @@
+2024-09-13 10:00:43,332 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:00:43,709 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:00:43,886 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:00:45,591 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:00:46,817 - DashboardPage - INFO - dashboard.py:34 - Clicked on the My Info menu
+2024-09-13 10:00:48,969 - MyInfoPage - INFO - my_info.py:75 - Navigated to the My Info page
+2024-09-13 10:00:59,931 - MyInfoPage - INFO - my_info.py:69 - Selected the date
+2024-09-13 10:01:10,373 - MyInfoPage - INFO - my_info.py:69 - Selected the date
+2024-09-13 10:01:12,757 - MyInfoPage - INFO - my_info.py:114 - Entered all the mandatory fields
+2024-09-13 10:01:12,809 - MyInfoPage - INFO - my_info.py:116 - Clicked on the Save button
+2024-09-13 10:01:13,221 - MyInfoPage - INFO - my_info.py:83 - Successfully Updated toast message is displayed
+2024-09-13 10:01:13,294 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:01:14,040 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:01:16,153 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:01:17,182 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:01:26,300 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:01:26,691 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:01:26,878 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:01:29,284 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:01:30,288 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Admin menu
+2024-09-13 10:01:32,437 - AdminPage - INFO - admin.py:55 - Navigate to the Admin page
+2024-09-13 10:01:32,505 - AdminPage - INFO - admin.py:60 - Clicked on the User Management menu
+2024-09-13 10:01:33,459 - AdminPage - INFO - admin.py:63 - Clicked on the Users item
+2024-09-13 10:01:33,585 - AdminPage - INFO - admin.py:66 - Navigated to the User Management page
+2024-09-13 10:01:34,309 - AdminPage - INFO - admin.py:71 - Clicked on the Add button
+2024-09-13 10:01:36,607 - AdminPage - INFO - admin.py:90 - Entered all the mandatory fields
+2024-09-13 10:01:36,662 - AdminPage - INFO - admin.py:92 - Clicked on the Save button
+2024-09-13 10:01:38,468 - AdminPage - INFO - admin.py:100 - Successfully Saved toast message is displayed
+2024-09-13 10:01:43,866 - AdminPage - INFO - admin.py:112 - Verified the user in the record
+2024-09-13 10:01:43,916 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:01:45,356 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:01:47,450 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:01:48,486 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:02:00,999 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:02:01,382 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:02:02,667 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:02:03,286 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:02:04,213 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Leave menu
+2024-09-13 10:02:06,363 - LeavePage - INFO - leave.py:47 - Navigated to the Leave page
+2024-09-13 10:02:06,865 - LeavePage - INFO - leave.py:52 - Clicked on the Apply tab
+2024-09-13 10:02:08,979 - LeavePage - INFO - leave.py:56 - Navigated to the Apply page
+2024-09-13 10:02:19,551 - LeavePage - INFO - leave.py:73 - Selected the date
+2024-09-13 10:02:29,905 - LeavePage - INFO - leave.py:73 - Selected the date
+2024-09-13 10:02:30,143 - LeavePage - INFO - leave.py:85 - Entered all the mandatory fields
+2024-09-13 10:02:30,196 - LeavePage - INFO - leave.py:87 - Click on the Apply button
+2024-09-13 10:02:30,962 - LeavePage - INFO - leave.py:94 - Successfully Saved toast message is displayed
+2024-09-13 10:02:31,428 - LeavePage - INFO - leave.py:103 - Clicked on the Leave tab
+2024-09-13 10:02:32,576 - LeavePage - INFO - leave.py:107 - Navigated to the My Leave page
+2024-09-13 10:02:32,824 - LeavePage - INFO - leave.py:113 - Applied leave is in the record
+2024-09-13 10:02:32,873 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:02:33,614 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:02:35,726 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:02:36,753 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:02:44,156 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:02:44,544 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:02:44,711 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:02:46,376 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:02:47,354 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Recruitment menu
+2024-09-13 10:02:49,507 - RecruitmentPage - INFO - recruitment.py:70 - Navigated to the Recruitment page
+2024-09-13 10:02:49,984 - RecruitmentPage - INFO - recruitment.py:75 - Clicked on the Add button
+2024-09-13 10:02:54,423 - RecruitmentPage - INFO - recruitment.py:110 - Entered all the mandatory fields
+2024-09-13 10:02:54,513 - RecruitmentPage - INFO - recruitment.py:112 - Clicked on the Save button
+2024-09-13 10:02:55,212 - RecruitmentPage - INFO - recruitment.py:82 -  toast message is displayed
+2024-09-13 10:02:58,963 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:03:00,090 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:03:02,190 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:03:03,217 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:03:27,170 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:03:27,654 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:03:27,822 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:03:33,471 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:03:37,473 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Recruitment menu
+2024-09-13 10:03:39,711 - RecruitmentPage - INFO - recruitment.py:133 - Downloaded the candidate resume
+2024-09-13 10:03:44,822 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:03:45,489 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:03:47,585 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:03:48,628 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:03:56,529 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:03:56,902 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:03:57,084 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:03:58,739 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:03:59,697 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Admin menu
+2024-09-13 10:04:01,858 - AdminPage - INFO - admin.py:55 - Navigate to the Admin page
+2024-09-13 10:04:01,916 - AdminPage - INFO - admin.py:60 - Clicked on the User Management menu
+2024-09-13 10:04:02,875 - AdminPage - INFO - admin.py:63 - Clicked on the Users item
+2024-09-13 10:04:03,008 - AdminPage - INFO - admin.py:66 - Navigated to the User Management page
+2024-09-13 10:04:03,813 - AdminPage - INFO - admin.py:71 - Clicked on the Add button
+2024-09-13 10:04:06,180 - AdminPage - INFO - admin.py:90 - Entered all the mandatory fields
+2024-09-13 10:04:06,253 - AdminPage - INFO - admin.py:92 - Clicked on the Save button
+2024-09-13 10:04:07,880 - AdminPage - INFO - admin.py:100 - Successfully Saved toast message is displayed
+2024-09-13 10:04:11,988 - AdminPage - INFO - admin.py:112 - Verified the user in the record
+2024-09-13 10:04:15,177 - AdminPage - INFO - admin.py:120 - Clicked on the Delete Icon for the Ricky26728 user
+2024-09-13 10:04:15,922 - AdminPage - INFO - admin.py:125 - Clicked on the Yes Delete button
+2024-09-13 10:04:32,143 - AdminPage - INFO - admin.py:133 - After Deleting Ricky26728 from the record is deleted
+2024-09-13 10:04:32,196 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:04:32,847 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:04:34,945 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:04:35,987 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:04:43,290 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:04:43,662 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:04:43,833 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:04:45,577 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:04:46,630 - DashboardPage - INFO - dashboard.py:34 - Clicked on the My Info menu
+2024-09-13 10:04:48,792 - MyInfoPage - INFO - my_info.py:75 - Navigated to the My Info page
+2024-09-13 10:04:59,779 - MyInfoPage - INFO - my_info.py:69 - Selected the date
+2024-09-13 10:05:10,156 - MyInfoPage - INFO - my_info.py:69 - Selected the date
+2024-09-13 10:05:12,572 - MyInfoPage - INFO - my_info.py:114 - Entered all the mandatory fields
+2024-09-13 10:05:12,650 - MyInfoPage - INFO - my_info.py:116 - Clicked on the Save button
+2024-09-13 10:05:13,077 - MyInfoPage - INFO - my_info.py:83 - Successfully Updated toast message is displayed
+2024-09-13 10:05:13,194 - MyInfoPage - INFO - my_info.py:120 - Clicked on the Add button
+2024-09-13 10:05:15,255 - MyInfoPage - INFO - my_info.py:127 - File is uploaded
+2024-09-13 10:05:15,290 - MyInfoPage - INFO - my_info.py:129 - Clicked on the Save button
+2024-09-13 10:05:15,477 - MyInfoPage - INFO - my_info.py:132 - Verified the profile in the record
+2024-09-13 10:05:18,586 - MyInfoPage - INFO - my_info.py:135 - Downloaded the profile from the record
+2024-09-13 10:05:28,624 - MyInfoPage - INFO - my_info.py:139 - Verified the profile record
+2024-09-13 10:05:28,673 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:05:29,409 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:05:31,520 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:05:32,547 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:05:41,934 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:05:42,376 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:05:43,540 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:05:44,119 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:05:44,631 - DashboardPage - INFO - dashboard.py:34 - Clicked on the Dashboard menu
+2024-09-13 10:05:49,354 - DashboardPage - INFO - dashboard.py:44 - Extracted the data from the canvas
+2024-09-13 10:05:49,625 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:05:50,320 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:05:52,419 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:05:53,445 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:06:00,879 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:06:01,255 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:06:02,631 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:06:03,264 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:06:03,301 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:06:04,294 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:06:06,415 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:06:07,444 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:06:14,645 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
+2024-09-13 10:06:15,017 - LoginPage - INFO - login_logout.py:41 - Entered username and password
+2024-09-13 10:06:16,384 - LoginPage - INFO - login_logout.py:45 - Clicked on the Login button
+2024-09-13 10:06:17,087 - DashboardPage - INFO - dashboard.py:29 - Navigated to the Dashboard page
+2024-09-13 10:06:18,112 - DashboardPage - INFO - dashboard.py:34 - Clicked on the PIM menu
+2024-09-13 10:06:20,264 - PimPage - INFO - pim.py:25 - Navigated to the PIM page
+2024-09-13 10:06:20,349 - PimPage - INFO - pim.py:30 - Clicked on the Help icon
+2024-09-13 10:06:20,353 - PimPage - INFO - pim.py:32 - Switched between the tabs
+2024-09-13 10:06:22,538 - PimPage - INFO - pim.py:37 - Navigated to the Help page
+2024-09-13 10:06:22,695 - PimPage - INFO - pim.py:41 - Navigated back to the old tab
+2024-09-13 10:06:22,850 - LoginPage - INFO - login_logout.py:50 - Clicked on the User Dropdown
+2024-09-13 10:06:23,511 - LoginPage - INFO - login_logout.py:52 - Clicked on the Logout option
+2024-09-13 10:06:25,614 - LoginPage - INFO - login_logout.py:56 - Successfully Logged out from the application
+2024-09-13 10:06:26,642 - LoginPage - INFO - login_logout.py:33 - Navigated to the Login Page
