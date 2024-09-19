@@ -29,7 +29,7 @@ class WebUtils:
             self.driver.find_element(*element).clear()
             self.driver.find_element(*element).send_keys(value)
         except Exception:
-            self.driver.executeScript(f"arguments[0].value='{value}';", *element);
+            self.driver.executeScript(f"arguments[0].value='{value}';", self.driver.find_element(*element))
 
     def check_element_is_displayed(self, element):
         try:

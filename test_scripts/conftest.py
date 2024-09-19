@@ -5,6 +5,7 @@ import pytest
 
 from allure_commons.types import AttachmentType
 from selenium import webdriver
+from selenium.common import InvalidArgumentException
 
 from generic_utils import Excel_Utils, Config_Utils, Common_Utils
 
@@ -31,7 +32,7 @@ def download_dir():
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", default="chrome")
+    parser.addoption("--browser", action="store", default="chrome", help="Browser to use for tests: chrome, firefox, edge")
 
 
 @pytest.fixture()
@@ -49,11 +50,40 @@ def setup_and_teardown(request, download_dir):
         options.add_experimental_option('detach', False)
         driver = webdriver.Chrome(options)
     elif browser == "edge":
-        driver = webdriver.Edge()
+        options = webdriver.EdgeOptions()
+        options.add_experimental_option("prefs", {
+            'download.default_directory': download_dir,
+            'download.prompt_for_download': False,
+            'download.directory_upgrade': True,
+            'safebrowsing.enabled': True
+        })
+        driver = webdriver.Edge(options)
     elif browser == "firefox":
-        driver = webdriver.Firefox()
+        options = webdriver.FirefoxOptions()
+        options.set_preference("browser.download.folderList", 2)  # Use custom download path
+        options.set_preference("browser.download.dir", download_dir)
+        options.set_preference("browser.download.useDownloadDir", True)
+        mime_types = (
+            "application/pdf,"
+            "application/octet-stream,"
+            "application/zip,"
+            "application/x-rar-compressed,"
+            "application/x-msdownload,"
+            "application/vnd.ms-excel,"
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,"
+            "application/msword,"
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document,"
+            "application/vnd.ms-powerpoint,"
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation,"
+            "text/plain,"
+            "text/csv"
+        )
+        options.set_preference("browser.helperApps.neverAsk.saveToDisk", mime_types)
+        options.set_preference("pdfjs.disabled", True)  # Disable built-in PDF viewer
+        # options.set_preference("browser.download.manager.showWhenStarting", False)  # Don't show download manager
+        driver = webdriver.Firefox(options)
     else:
-        raise Exception("Invalid browser.")
+        raise InvalidArgumentException("Invalid browser selection.")
 
     driver.maximize_window()
     driver.implicitly_wait(15)
